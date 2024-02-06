@@ -1,0 +1,25 @@
+{
+    "name": "property-management-app-server",
+    "version": "1.0.0",
+    "description": "Server for the Property Management App",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server/server.js",
+        "dev": "nodemon server/server.js",
+        "test": "mocha --exit"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.1",
+        "express": "^4.17.1",
+        "if-env": "^1.0.4",
+        "mongoose": "^5.11.15"
+    },
+    "devDependencies": {
+        "chai": "^5.0.3",
+        "mocha": "^10.2.0",
+        "nodemon": "^2.0.7",
+        "supertest": "^6.3.4"
+    },
+    "author": "",
+    "license": "ISC"
+}

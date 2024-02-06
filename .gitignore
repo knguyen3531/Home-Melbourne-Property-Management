@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+.env
+
+# Build output
+client/build/
+
+# IDE and code editor files
+.vscode/
+.idea/
+*.iml
+
+# Dependency directories
+.yarn/
+.pnp/
+.pnp.js
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# Editor-specific files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Windows image file caches
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
