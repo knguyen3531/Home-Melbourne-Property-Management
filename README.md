@@ -1,4 +1,4 @@
-Certainly! Here's the README.md template in a code block:
+
 
 ```markdown
 # Property Management App
