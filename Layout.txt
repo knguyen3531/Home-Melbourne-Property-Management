@@ -204,37 +204,48 @@ Fulfilling all three of the following requirements to turn your app into a PWA w
 
 
 
-PropertyManagementApp/
-│
-├── client/                     # React front-end
-│   ├── public/                 
-│   │   ├── index.html          # Main HTML file
-│   │   ├── manifest.json       # Web app manifest for PWA
-│   │   └── service-worker.js   # Service worker for PWA
-│   ├── src/                    
-│   │   ├── components/         # Reusable UI components
-│   │   │   ├── common/         
-│   │   │   │   ├── Header.js   # Header component
-│   │   │   │   └── Footer.js   # Footer component
-│   │   │   ├── Dashboard/      
-│   │   │   │   └── Dashboard.js # Dashboard component
-│   │   │   ├── TenantManagement/
-│   │   │   │   └── TenantList.js # Tenant management component
-│   │   │   ├── MaintenanceRequests/
-│   │   │   │   └── RequestForm.js # Maintenance request form
-│   │   │   └── PropertyListings/
-│   │   │       └── PropertyCard.js # Property listing card
-│   │   ├── pages/              
-│   │   │   ├── HomePage.js     # Home page
-│   │   │   └── AboutPage.js    # About page
-│   │   ├── utils/              
-│   │   │   ├── auth.js         # Authentication utilities
-│   │   │   └── api.js          # API utilities
-│   │   ├── App.js              # Main React application component
-│   │   └── index.js            # Entry point for React app
-│   ├── tests/                  
-│   │   └── App.test.js         # Tests for the App component
-│   └── package.json            
+PPropertyManagementApp/
+├── client/
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── manifest.json          # For PWA capabilities
+│   │   └── service-worker.js      # For offline functionality
+│   ├── src/
+│   │   ├── components/            # Reusable components across the app
+│   │   │   ├── common/            # Common components like Header, Footer, etc.
+│   │   │   │   ├── Header.js
+│   │   │   │   ├── Footer.js
+│   │   │   │   └── Nav.js          # Navigation component
+│   │   │   ├── auth/              # Authentication related components
+│   │   │   │   ├── Login.js
+│   │   │   │   └── SignUp.js
+│   │   │   ├── dashboard/         # Dashboard specific components
+│   │   │   │   ├── Overview.js
+│   │   │   │   └── Stats.js
+│   │   │   ├── properties/
+│   │   │   │   ├── PropertyList.js
+│   │   │   │   └── PropertyDetail.js
+│   │   │   ├── tenants/
+│   │   │   │   ├── TenantList.js
+│   │   │   │   └── TenantDetail.js
+│   │   │   └── maintenance/
+│   │   │       ├── RequestList.js
+│   │   │       └── RequestForm.js
+│   │   ├── pages/                 # Page components for routing
+│   │   │   ├── HomePage.js        # Landing page
+│   │   │   ├── DashboardPage.js   # Main dashboard view
+│   │   │   ├── PropertiesPage.js  # Property listings and details
+│   │   │   ├── TenantsPage.js     # Tenant management
+│   │   │   └── MaintenancePage.js # Maintenance requests handling
+│   │   ├── utils/                 # Utility functions and custom hooks
+│   │   │   ├── api.js             # API call functions
+│   │   │   └── auth.js            # Authentication helpers
+│   │   ├── App.js                 # Main application component with routing setup
+│   │   ├── index.js               # Application entry point
+│   │   └── app.css                # Global styles
+│   ├── .env                       # Environment variables for the client side
+│   └── package.json
+└── ...
 │
 ├── server/                     
 │   ├── config/                 

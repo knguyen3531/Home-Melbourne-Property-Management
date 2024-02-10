@@ -1,0 +1,35 @@
+/* Nav.css */
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  margin-bottom: 20px; /* Add some space between the nav and content */
+}
+
+nav a {
+  text-decoration: none;
+  margin-left: 20px; /* Spacing between links */
+  color: #757575; /* Lighter shade of grey for the links */
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent; /* Add border for button appearance */
+  border-radius: 4px; /* Rounded corners for buttons */
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition for color change */
+}
+
+nav a:hover {
+  color: #424242; /* Slightly darker shade of grey on hover */
+}
+
+/* Styling for the "Profiles" link */
+nav a.profiles {
+  background-color: #4caf50; /* Green background color for the "Profiles" link */
+  color: white; /* Text color for the "Profiles" link */
+}
+
+/* Styling for the active link */
+nav a.active {
+  color: white; /* Text color for active link */
+  background-color: #333; /* Background color for active link */
+  border-color: #333; /* Border color for active link */
+}
