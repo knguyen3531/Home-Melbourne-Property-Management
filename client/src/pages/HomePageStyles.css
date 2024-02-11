@@ -1,143 +1,35 @@
-/* General Styling Adjustments */
-body, html {
-  font-family: 'Arial', sans-serif;
-  background-color: #e5e5e5; /* Light vintage blue background */
-  color: #333; /* Ensuring good readability */
-  margin: 0;
-  padding: 0;
-}
-
-/* Main container adjustments for cohesive theme */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Jumbotron adjustments for a modern look */
-.jumbotron {
-  background-color: #002244; /* Dark blue background */
-  color: #ffffff; /* White text color for contrast */
-  padding: 40px;
-  border-radius: 8px;
-  margin-bottom: 30px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-}
-
-.jumbotron h1.display-4 {
-  font-family: 'Arial', sans-serif; /* Change font family */
-  font-size: 2.5rem; /* Increase font size */
-  font-weight: bold; /* Bold font weight */
-  margin-bottom: 20px; /* Add space below the heading */
-}
-
-.jumbotron p.lead {
-  font-size: 1.2rem; /* Increase font size */
-  line-height: 1.6; /* Increase line height for better readability */
-  margin-bottom: 20px; /* Add space below the paragraph */
-}
-
-.jumbotron p {
-  font-size: 1rem; /* Adjust font size */
-  line-height: 1.6; /* Adjust line height */
-}
-
-/* Aligning Features, Testimonials, and CTA Sections with the new theme */
-.features-section, .testimonials-section, .cta-section {
-  background-color: #ffffff; /* Clear background for content sections */
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 30px;
-}
-
-.features-section h2, .testimonials-section h2, .cta-section h2 {
-  color: #004b87; /* Vintage blue for section headings */
-}
-
-/* Button styles for a cohesive look with the logo */
-.btn-primary, .btn-success {
-  background-color: #004b87; /* Vintage blue for buttons */
-  color: #ffffff; /* White text for contrast */
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-primary:hover, .btn-success:hover {
-  background-color: #FFD700; /* Gold for hover effects, complementing the logo */
-  color: #004b87;
-}
-
-/* Our Story Bubble adjustments for theme consistency */
-.our-story-bubble {
-  position: relative;
-  background-color: #f7f7f7; /* Maintained for readability */
-  border-radius: 16px;
-  padding: 20px;
-  margin: 2em 0;
-  color: #333; /* Text color for contrast */
-  font-style: italic;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.our-story-bubble:after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50px;
-  border: 15px solid transparent;
-  border-bottom-color: #f7f7f7; /* Matching the bubble background */
-}
-
-/* Aligning the bubble to the left or right as desired */
-.our-story-bubble-left {
-  margin-right: auto;
-  margin-left: 0;
-}
-
 /* Header and Nav adjustments for a vintage blue look */
-header {
+header.header {
   background-color: #004b87; /* Vintage blue header background */
   color: #ffffff; /* White font color */
   padding: 20px 0;
   text-align: center;
 }
 
-.nav-bar a {
+.nav-bar a.nav-link {
   color: #ffffff; /* White font color for nav links */
   text-decoration: none;
   margin: 0 15px;
 }
 
-.nav-bar a:hover {
+.nav-bar a.nav-link:hover {
   color: #FFD700; /* Gold for an elegant hover effect */
 }
 
 /* Our Story section styles */
-.our-story-section {
-  padding: 40px;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 30px;
-}
-
-.our-story-container {
+.our-story-section .our-story-container {
   max-width: 800px;
   margin: 0 auto;
 }
 
-.our-story-heading {
+.our-story-section .our-story-heading {
   color: #004b87;
   font-size: 2rem;
   text-align: center;
   margin-bottom: 30px;
 }
 
-.our-story-content p {
+.our-story-section .our-story-content p {
   font-size: 1.1rem;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -149,21 +41,21 @@ header {
   margin-bottom: 40px;
 }
 
-.image-container {
+.image-section .image-container {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.main-image {
+.image-section .main-image {
   width: 50%;
   height: auto;
   border-radius: 8px;
   transition: opacity 0.5s ease;
 }
 
-.side-image {
+.image-section .side-image {
   width: 50%;
   height: auto;
   border-radius: 8px;

@@ -4,9 +4,9 @@ import './HomePageStyles.css'; // Import the CSS file
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Import your images with the correct paths
-import handshakeImage1 from './Assets/Hand Shake 1.jpg';
-import handshakeImage2 from './Assets/Hand Shake 2.jpg';
-import realEstateImage from './Assets/Reals Estate.jpg';
+import handshakeImage1 from '../Assets/Photo/Hand Shake 1.jpg';
+import handshakeImage2 from '../Assets/Photo/Hand Shake 2.jpg';
+import realEstateImage from '../Assets/Photo/Reals Estate 2.jpg';
 
 function HomePage() {
   // State to toggle between images

@@ -1,33 +1,28 @@
-// App.js
-
+// client/src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { AuthProvider } from './utils/AuthContext';
+import ProtectedRoute from './utils/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
-import PropertiesPage from './pages/PropertiesPage';
-import TenantsPage from './pages/TenantsPage';
-import MaintenancePage from './pages/MaintenancePage';
-import Login from './components/auth/Login'; // Import the Login component
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import './app.css';
+import LoginForm from './components/auth/LoginForm';
+import Nav from './components/common/Nav';
 
 function App() {
-  return (
-    <Router>
-      <Header />
-      <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/dashboard" component={DashboardPage} />
-        <Route path="/properties" component={PropertiesPage} />
-        <Route path="/tenants" component={TenantsPage} />
-        <Route path="/maintenance" component={MaintenancePage} />
-        <Route path="/login" component={Login} /> {/* Add this line for the login route */}
-        {/* Add more routes as needed */}
-      </Switch>
-      <Footer />
-    </Router>
-  );
+    return (
+        <Router>
+            <AuthProvider>
+                <div className="App">
+                    <Nav />
+                    <Switch>
+                        <Route exact path="/" component={HomePage} />
+                        <Route path="/login" component={LoginForm} />
+                        <ProtectedRoute path="/dashboard" component={DashboardPage} />
+                    </Switch>
+                </div>
+            </AuthProvider>
+        </Router>
+    );
 }
 
 export default App;

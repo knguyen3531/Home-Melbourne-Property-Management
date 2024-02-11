@@ -1,12 +1,12 @@
-// Placeholder for authentication-related functions, such as login, logout, and check authentication status.
+// client/src/utils/auth.js
 
-export const login = async (credentials) => {
-    // Implementation for logging in
-  };
+// Mock login function
+export const login = async ({ email, password }) => {
   
-  export const logout = () => {
-    // Implementation for logging out
-  };
-  
-  // Add more as needed for your authentication flow.
-  
+  // This is a mock response assuming the credentials match the seeded user.
+  if (email === "khoi@example.com" && password === "password123") {
+      return { success: true, user: { id: "65c888efe02e73e0036d0960", email: "khoi@example.com" } };
+  } else {
+      return { success: false, message: "Invalid credentials" };
+  }
+};

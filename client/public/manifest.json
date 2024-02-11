@@ -10,7 +10,7 @@
     {
       "src": "LOGO.webp",
       "type": "image/webp",
-      "sizes": "192x192"
+      "sizes": "192x192 512x512" 
     }
   ],
   "start_url": ".",
