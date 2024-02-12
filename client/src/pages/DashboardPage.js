@@ -1,3 +1,5 @@
+// client\src\pages\DashboardPage.js
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../utils/AuthContext';
 import './DashboardPageStyles.css';
@@ -150,48 +152,48 @@ function DashboardPage() {
 
   return (
     <div className="dashboard-container">
-      <h1>Dashboard</h1>
+      <h1 className="dashboard-title">Dashboard</h1>
       <div>
         <h2>Next Due Date: {nextDueDate ? nextDueDate.toLocaleDateString() : 'Calculating...'}</h2>
       </div>
       {userProperties.length ? (
         userProperties.map(property => (
           <div key={property.id} className="property-item">
-            <h2>{property.address}</h2>
-            <p><strong>Bedrooms:</strong> {property.bedrooms}</p>
-            <p><strong>Bathrooms:</strong> {property.bathrooms}</p>
-            <p><strong>Sqft:</strong> {property.sqft}</p>
-            <p><strong>Type:</strong> {property.type}</p>
+            <h2 className="property-heading">{property.address}</h2>
+            <p className="property-detail"><strong>Bedrooms:</strong> {property.bedrooms}</p>
+            <p className="property-detail"><strong>Bathrooms:</strong> {property.bathrooms}</p>
+            <p className="property-detail"><strong>Sqft:</strong> {property.sqft}</p>
+            <p className="property-detail"><strong>Type:</strong> {property.type}</p>
             {property.amenities && (
-              <p><strong>Amenities:</strong> {property.amenities.join(', ')}</p>
+              <p className="property-detail"><strong>Amenities:</strong> {property.amenities.join(', ')}</p>
             )}
             {property.description && (
-              <p><strong>Description:</strong> {property.description}</p>
+              <p className="property-detail"><strong>Description:</strong> {property.description}</p>
             )}
-            <p><strong>Rent Price:</strong> ${property.rentPrice}</p>
-            <p><strong>Rent Status:</strong> {property.rentStatus}</p>
+            <p className="property-detail"><strong>Rent Price:</strong> ${property.rentPrice}</p>
+            <p className="property-detail"><strong>Rent Status:</strong> {property.rentStatus}</p>
             {/* Payment form */}
             <form onSubmit={(e) => {
               e.preventDefault();
               handlePayment(property.id);
-            }}>
+            }} className="form">
               <div>
-                <label>Cardholder Name:</label>
-                <input type="text" name="cardholderName" placeholder="Name" value={formData.cardholderName} onChange={handleInputChange} required />
+                <label className="label">Cardholder Name:</label>
+                <input type="text" name="cardholderName" placeholder="Name" value={formData.cardholderName} onChange={handleInputChange} required className="input" />
               </div>
               <div>
-                <label>Card Number:</label>
-                <input type="text" name="cardNumber" placeholder="Card Number" value={formData.cardNumber} onChange={handleInputChange} required />
+                <label className="label">Card Number:</label>
+                <input type="text" name="cardNumber" placeholder="Card Number" value={formData.cardNumber} onChange={handleInputChange} required className="input" />
               </div>
               <div>
-                <label>CVV:</label>
-                <input type="text" name="cvv" placeholder="CVV" value={formData.cvv} onChange={handleInputChange} required />
+                <label className="label">CVV:</label>
+                <input type="text" name="cvv" placeholder="CVV" value={formData.cvv} onChange={handleInputChange} required className="input" />
               </div>
               <div>
-                <label>Expiration Date:</label>
-                <input type="month" name="expirationDate" value={formData.expirationDate} onChange={handleInputChange} required />
+                <label className="label">Expiration Date:</label>
+                <input type="month" name="expirationDate" value={formData.expirationDate} onChange={handleInputChange} required className="input" />
               </div>
-              <button type="submit" disabled={!isFormFilled}>Submit Payment</button>
+              <button type="submit" disabled={!isFormFilled} className="submit-button">Submit Payment</button>
             </form>
           </div>
         ))

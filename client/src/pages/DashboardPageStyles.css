@@ -1,57 +1,97 @@
-/* client/src/pages/DashboardPageStyles.css */
-
+/* Main container */
 .dashboard-container {
     max-width: 1200px;
-    margin: 20px auto;
+    margin: 40px auto;
     padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #EFF2F5; /* Light gray background for a clean look */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
+    color: #334E68; /* Dark blue for text */
 }
 
-h1 {
-    color: #004b87;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-h2 {
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.rents-section, .maintenance-section {
-    background-color: #ffffff;
-    padding: 15px;
+/* Dashboard title styling */
+.dashboard-title {
+    color: #005f73; /* Volvo's dark blue */
     margin-bottom: 20px;
+    text-align: center;
+    font-size: 2.2rem;
+}
+
+/* Property item card */
+.property-item {
+    background-color: #FFFFFF; /* Pure white for contrast with the container */
+    padding: 20px;
+    margin-bottom: 25px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #0077B6; /* Highlight color - Volvo blue */
 }
 
-.rents-list, .maintenance-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+/* Headings within property items for clear hierarchy */
+.property-heading {
+    font-size: 1.6rem;
+    color: #0077B6; /* Volvo blue for headings */
+    margin-bottom: 10px;
 }
 
-.rent-item, .maintenance-item {
-    background-color: #e9ecef;
-    padding: 10px;
-    border-radius: 5px;
+/* Detail styling for property attributes */
+.property-detail {
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    font-size: 0.95rem; /* Slightly smaller for detailed text */
+    color: #495057; /* Dark gray for details */
+    border-left: 3px solid #ADE8F4; /* Light blue for a subtle Volvo aesthetic */
 }
 
-h3 {
-    margin-top: 0;
+/* Form styling */
+.form {
+    max-width: 400px; /* Smaller form for a focused, clean look */
+    margin-top: 20px;
+    background-color: #FAFAFA; /* Very light gray for form background */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
 }
 
-p {
-    margin: 5px 0;
-    line-height: 1.5;
+/* Input styling */
+.input {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #B0C4DE; /* Soft blue border */
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #334E68; /* Text color inside inputs */
+    background-color: #FFFFFF; /* White background for inputs */
 }
 
-strong {
-    color: #333;
+/* Label styling for better readability */
+.label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0077B6; /* Volvo blue for labels */
+    font-size: 1rem;
 }
 
-/* Additional styles for other elements like calendar or forms as needed */
+/* Styling for the submit button */
+.submit-button {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #0077B6; /* Volvo blue */
+    color: #FFFFFF; /* White text for readability */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #005f73; /* Darker shade of blue on hover */
+}
+
+.submit-button:disabled {
+    background-color: #B0C4DE; /* Disabled button in soft blue */
+    cursor: not-allowed;
+}
