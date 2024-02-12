@@ -5,9 +5,6 @@ const typeDefs = require('./graphql/schemas/typeDefs');
 const resolvers = require('./graphql/resolvers/resolver');
 const connectDB = require('./config/database');
 const cors = require('cors');
-app.use(cors({
-  origin: 'https://home-melbourne-793e701a0452.herokuapp.com'
-}));
 
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
@@ -27,7 +24,7 @@ const startServer = async () => {
   });
 
   await server.start();
-  server.applyMiddleware({ app, cors: false });
+  server.applyMiddleware({ app, cors: false, path: '/graphql' }); // Update to include the path
 
   await connectDB();
 
