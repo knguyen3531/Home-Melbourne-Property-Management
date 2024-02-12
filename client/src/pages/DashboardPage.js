@@ -4,6 +4,7 @@ import './DashboardPageStyles.css';
 
 function DashboardPage() {
   const [userProperties, setUserProperties] = useState([]);
+  const [nextDueDate, setNextDueDate] = useState(null); // State to hold the next due date
   const { user, token } = useAuth();
 
   useEffect(() => {
@@ -60,11 +61,26 @@ function DashboardPage() {
     };
 
     fetchUserProperties();
+
+    // Calculate and set the next due date
+    const calculateNextDueDate = () => {
+      // Example: Calculate the next due date to be one month from the current date
+      const currentDate = new Date();
+      const nextMonth = currentDate.getMonth() + 1;
+      const nextYear = currentDate.getFullYear();
+      const calculatedDueDate = new Date(nextYear, nextMonth, 1); // First day of next month
+      setNextDueDate(calculatedDueDate);
+    };
+
+    calculateNextDueDate(); // Call the function when component mounts
   }, [user, token]);
 
   return (
     <div className="dashboard-container">
       <h1>Dashboard</h1>
+      <div>
+        <h2>Next Due Date: {nextDueDate ? nextDueDate.toLocaleDateString() : 'Calculating...'}</h2>
+      </div>
       {userProperties.length ? (
         userProperties.map(property => (
           <div key={property.id} className="property-item">
@@ -80,7 +96,7 @@ function DashboardPage() {
               <p><strong>Description:</strong> {property.description}</p>
             )}
             <p><strong>Rent Price:</strong> ${property.rentPrice}</p>
-            <p><strong>Rent Status:</strong> {property.rentStatus}</p> {/* Display rent status */}
+            <p><strong>Rent Status:</strong> {property.rentStatus}</p>
           </div>
         ))
       ) : (
