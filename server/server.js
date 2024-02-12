@@ -4,7 +4,10 @@ const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./graphql/schemas/typeDefs');
 const resolvers = require('./graphql/resolvers/resolver');
 const connectDB = require('./config/database');
-const cors = require('cors'); // Import CORS
+const cors = require('cors');
+app.use(cors({
+  origin: 'https://home-melbourne-793e701a0452.herokuapp.com'
+}));
 
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
@@ -16,7 +19,7 @@ const startServer = async () => {
     origin: 'https://home-melbourne-793e701a0452.herokuapp.com', // Adjust this to your frontend's URL
     credentials: true, // Allows cookies to be sent alongside the request if needed
   };
-  app.use(cors(corsOptions)); 
+  app.use(cors(corsOptions)); // Use CORS with your specified options
 
   const server = new ApolloServer({
     typeDefs,
