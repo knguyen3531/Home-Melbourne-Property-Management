@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await fetch('http://localhost:5000/graphql', { // Make sure the URL is correct
+            const response = await fetch(graphqlEndpoint, { // Ensure this URL is correct
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

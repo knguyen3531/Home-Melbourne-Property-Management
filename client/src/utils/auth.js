@@ -1,6 +1,6 @@
 export const login = async ({ email, password }) => {
     try {
-      const response = await fetch('http://localhost:5000/graphql', { // Ensure this URL is correct
+        const response = await fetch(graphqlEndpoint, { // Ensure this URL is correct
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
