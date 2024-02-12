@@ -4,7 +4,6 @@ const { ApolloServer } = require('apollo-server-express');
 const typeDefs = require('./graphql/schemas/typeDefs');
 const resolvers = require('./graphql/resolvers/resolver');
 const connectDB = require('./config/database');
-const seedDatabase = require('./seed');
 
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
@@ -19,9 +18,6 @@ const startServer = async () => {
   server.applyMiddleware({ app });
 
   await connectDB();
-
-  // Seed the database
-  await seedDatabase();
 
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}${server.graphqlPath}`));
