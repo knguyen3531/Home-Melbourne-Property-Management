@@ -27,13 +27,13 @@ const startServer = async () => {
   await server.start();
   server.applyMiddleware({ app, cors: false, path: '/graphql' }); // Update to include the path
 
-  // Serve the static files from the React app
+  // Serve static assets if in production
   if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
+    // Set static folder
+    app.use(express.static(path.join(__dirname, '../client/build')));
 
-    // Route all other requests to React app's index.html
     app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
     });
   }
 
