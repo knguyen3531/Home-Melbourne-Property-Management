@@ -1,4 +1,3 @@
-// client/src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './utils/AuthContext';
@@ -11,7 +10,7 @@ import Nav from './components/common/Nav';
 function App() {
     return (
         <Router>
-            <AuthProvider>
+            <AuthProvider> {/* Ensures AuthContext wraps the entire app */}
                 <div className="App">
                     <Nav />
                     <Switch>

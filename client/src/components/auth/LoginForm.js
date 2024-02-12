@@ -1,29 +1,28 @@
 // client/src/components/auth/LoginForm.js
+
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { login as loginUser } from '../../utils/auth'; // Import the login function
-import './LoginStyles.css';
 import { useAuth } from '../../utils/AuthContext';
+import './LoginStyles.css';
 
 function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
-    const { login } = useAuth();
+    const auth = useAuth(); // useAuth hook to access the login function
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Submitting login form with:', email, password); // Logging form input values
-        const response = await loginUser({ email, password });
-        console.log('Login response:', response); // Logging login response
-        if (response.success) {
-            console.log('Login successful!'); // Logging success message
-            login(response.user); // Update auth context with logged in user
-            history.push('/dashboard');
-        } else {
-            console.error('Login failed:', response.message); // Logging error message
-            // Handle login failure (show error message)
-            alert(response.message); // Placeholder for error handling
+        try {
+            const response = await auth.login(email, password); // Call the login function from the context
+            if (response.success) {
+                history.push('/dashboard');
+            } else {
+                alert(response.message);
+            }
+        } catch (error) {
+            // Handle the error if login fails
+            alert(error.message);
         }
     };
 

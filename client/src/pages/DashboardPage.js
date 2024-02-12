@@ -1,56 +1,94 @@
 // client/src/pages/DashboardPage.js
-import React, { useState, useEffect } from 'react';
-import './DashboardPageStyles.css'; // Ensure you have updated this CSS file with the new styles below
 
-const mockData = {
-    rents: [
-        { id: 1, property: '123 Main St', amount: '$1200', dueDate: '2024-03-01' },
-        { id: 2, property: '456 Elm St', amount: '$800', dueDate: '2024-03-01' },
-    ],
-    maintenanceRequests: [
-        { id: 1, property: '123 Main St', issue: 'Leaky faucet', status: 'Pending' },
-        { id: 2, property: '456 Elm St', issue: 'Broken heater', status: 'Resolved' },
-    ],
-};
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../utils/AuthContext';
+import './DashboardPageStyles.css';
 
 function DashboardPage() {
-    const [rents, setRents] = useState([]);
-    const [maintenanceRequests, setMaintenanceRequests] = useState([]);
+  const [userProperties, setUserProperties] = useState([]);
+  const { user, token } = useAuth();
 
-    useEffect(() => {
-        setRents(mockData.rents);
-        setMaintenanceRequests(mockData.maintenanceRequests);
-    }, []);
+  useEffect(() => {
+    const fetchUserProperties = async () => {
+      if (user && user.email && token) {
+        const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql'; // Fallback to a default value
 
-    return (
-        <div className="dashboard-container">
-            <h1>Dashboard</h1>
-            <div className="rents-section">
-                <h2>Rents</h2>
-                <div className="rents-list">
-                    {rents.map(rent => (
-                        <div className="rent-item" key={rent.id}>
-                            <h3>{rent.property}</h3>
-                            <p><strong>Amount:</strong> {rent.amount}</p>
-                            <p><strong>Due Date:</strong> {rent.dueDate}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <div className="maintenance-section">
-                <h2>Maintenance Requests</h2>
-                <div className="maintenance-list">
-                    {maintenanceRequests.map(request => (
-                        <div className="maintenance-item" key={request.id}>
-                            <h3>{request.property}</h3>
-                            <p><strong>Issue:</strong> {request.issue}</p>
-                            <p><strong>Status:</strong> {request.status}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
+        console.log('Making request to:', graphqlEndpoint); // For debugging
+
+        try {
+          const response = await fetch(graphqlEndpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              query: `
+                query GetPropertiesByUser($userEmail: String!) {
+                  getPropertiesByUser(userEmail: $userEmail) {
+                    id
+                    address
+                    bedrooms
+                    bathrooms
+                    sqft
+                    type
+                    amenities
+                    description
+                    rentPrice
+                  }
+                }
+              `,
+              variables: {
+                userEmail: user.email,
+              },
+            }),
+          });
+
+          const { data, errors } = await response.json();
+          if (errors) {
+            console.error('GraphQL Errors:', errors);
+            throw new Error('GraphQL Errors');
+          }
+          if (data.getPropertiesByUser) {
+            setUserProperties(data.getPropertiesByUser);
+          } else {
+            throw new Error('Failed to fetch properties');
+          }
+        } catch (error) {
+          console.error('Error fetching user properties:', error);
+        }
+      }
+    };
+
+    fetchUserProperties();
+  }, [user, token]);
+
+  return (
+    <div className="dashboard-container">
+      <h1>Dashboard</h1>
+      {userProperties.length ? (
+        userProperties.map(property => (
+          <div key={property.id} className="property-item">
+            <h2>{property.address}</h2>
+            <p><strong>Bedrooms:</strong> {property.bedrooms}</p>
+            <p><strong>Bathrooms:</strong> {property.bathrooms}</p>
+            <p><strong>Sqft:</strong> {property.sqft}</p>
+            <p><strong>Type:</strong> {property.type}</p>
+            {/* Render amenities if they exist */}
+            {property.amenities && (
+              <p><strong>Amenities:</strong> {property.amenities.join(', ')}</p>
+            )}
+            {property.description && (
+              <p><strong>Description:</strong> {property.description}</p>
+            )}
+            <p><strong>Rent Price:</strong> ${property.rentPrice}</p>
+          </div>
+        ))
+      ) : (
+        <p>No properties found for this user.</p>
+      )}
+    </div>
+  );
 }
 
 export default DashboardPage;

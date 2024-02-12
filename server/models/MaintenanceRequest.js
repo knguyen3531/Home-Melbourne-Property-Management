@@ -1,3 +1,5 @@
+// server\models\MaintenanceRequest.js
+
 const mongoose = require('mongoose');
 
 const maintenanceRequestSchema = new mongoose.Schema({

@@ -1,12 +1,38 @@
-// client/src/utils/auth.js
-
-// Mock login function
 export const login = async ({ email, password }) => {
+    try {
+      const response = await fetch('http://localhost:5000/graphql', { // Ensure this URL is correct
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+              query: `
+                  mutation LoginUser($email: String!, $password: String!) {
+                      loginUser(email: $email, password: $password) {
+                          success
+                          message
+                          user {
+                              id
+                              email
+                          }
+                          token
+                      }
+                  }
+              `,
+              variables: {
+                  email,
+                  password,
+              },
+          }),
+      });
+      const { data } = await response.json();
+      if (!data.loginUser.success) {
+          throw new Error(data.loginUser.message);
+      }
+      return data.loginUser;
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  };
   
-  // This is a mock response assuming the credentials match the seeded user.
-  if (email === "khoi@example.com" && password === "password123") {
-      return { success: true, user: { id: "65c888efe02e73e0036d0960", email: "khoi@example.com" } };
-  } else {
-      return { success: false, message: "Invalid credentials" };
-  }
-};
