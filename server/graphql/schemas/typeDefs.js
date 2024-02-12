@@ -1,12 +1,9 @@
-// server/graphql/schemas/typeDefs.js
-
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
     id: ID!
     email: String!
-
   }
 
   type Property {
@@ -21,7 +18,7 @@ const typeDefs = gql`
     amenities: [String]
     description: String
     rentPrice: Float
-    # Add any other fields as necessary
+    rentStatus: String  # Added rentStatus field
   }
 
   type MaintenanceRequest {
@@ -47,7 +44,7 @@ const typeDefs = gql`
     amenities: [String]
     description: String
     rentPrice: Float
-
+    rentStatus: String  # Added rentStatus field
   }
 
   input CreateMaintenanceRequestInput {

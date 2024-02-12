@@ -1,5 +1,3 @@
-// server/models/Property.js
-
 const mongoose = require('mongoose');
 
 const propertySchema = new mongoose.Schema({
@@ -43,6 +41,11 @@ const propertySchema = new mongoose.Schema({
     type: String,
     enum: ['Available', 'Rented', 'Under Maintenance'],
     default: 'Available',
+  },
+  rentStatus: {
+    type: String,
+    enum: ['paid', 'unpaid'],
+    default: 'unpaid',
   },
 });
 

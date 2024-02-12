@@ -1,5 +1,3 @@
-// client/src/pages/DashboardPage.js
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../utils/AuthContext';
 import './DashboardPageStyles.css';
@@ -11,9 +9,9 @@ function DashboardPage() {
   useEffect(() => {
     const fetchUserProperties = async () => {
       if (user && user.email && token) {
-        const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql'; // Fallback to a default value
+        const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql';
 
-        console.log('Making request to:', graphqlEndpoint); // For debugging
+        console.log('Making request to:', graphqlEndpoint); 
 
         try {
           const response = await fetch(graphqlEndpoint, {
@@ -35,6 +33,7 @@ function DashboardPage() {
                     amenities
                     description
                     rentPrice
+                    rentStatus
                   }
                 }
               `,
@@ -74,7 +73,6 @@ function DashboardPage() {
             <p><strong>Bathrooms:</strong> {property.bathrooms}</p>
             <p><strong>Sqft:</strong> {property.sqft}</p>
             <p><strong>Type:</strong> {property.type}</p>
-            {/* Render amenities if they exist */}
             {property.amenities && (
               <p><strong>Amenities:</strong> {property.amenities.join(', ')}</p>
             )}
@@ -82,6 +80,7 @@ function DashboardPage() {
               <p><strong>Description:</strong> {property.description}</p>
             )}
             <p><strong>Rent Price:</strong> ${property.rentPrice}</p>
+            <p><strong>Rent Status:</strong> {property.rentStatus}</p> {/* Display rent status */}
           </div>
         ))
       ) : (
