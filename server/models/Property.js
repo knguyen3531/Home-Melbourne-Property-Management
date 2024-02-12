@@ -33,10 +33,16 @@ const propertySchema = new mongoose.Schema({
     enum: ['Single Family Home', 'Apartment', 'Townhouse', 'Luxury Villa', 'Ranch House'],
     required: true,
   },
-  amenities: [String],
-  description: String,
   rentPrice: {
     type: Number,
+    required: true,
+  },
+  amenities: [String],
+  description: String,
+  status: {
+    type: String,
+    enum: ['Available', 'Rented', 'Under Maintenance'],
+    default: 'Available',
   },
 });
 

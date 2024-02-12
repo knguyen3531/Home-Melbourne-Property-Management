@@ -61,23 +61,23 @@ const seedDatabase = async () => {
     ]);
 
     // Create properties for each user
-    const properties = [];
-    for (let i = 0; i < users.length; i++) {
-      const user = users[i];
-      const property = await Property.create({
-        owner: user._id,
-        address: `${i + 1} Example St, Anytown, USA`,
-        bedrooms: 3,
-        bathrooms: 2,
-        sqft: 1800,
-        type: 'Single Family Home',
-        amenities: ['Swimming Pool', 'Garden', 'Garage'],
-        description: `Property owned by ${user.firstName} ${user.lastName}`,
-        rentPrice: user.rentPrice,
-        status: 'Available',
-      });
-      properties.push(property);
-    }
+const properties = [];
+for (let i = 0; i < users.length; i++) {
+  const user = users[i];
+  const property = await Property.create({
+    owner: user._id,
+    address: `${i + 1} Example St, Anytown, USA`,
+    bedrooms: 3,
+    bathrooms: 2,
+    sqft: 1800,
+    type: 'Single Family Home',
+    rentPrice: 750, // Set rent price to $750 for each property
+    amenities: ['Swimming Pool', 'Garden', 'Garage'],
+    description: `This beautiful single-family home features spacious living areas, three bedrooms, two bathrooms, and a well-maintained garden. Enjoy leisure time by the swimming pool or utilize the garage for convenient parking. Located in a serene neighborhood, this property offers comfort and convenience for a delightful living experience.`,
+    status: 'Available',
+  });
+  properties.push(property);
+}
 
     // Create maintenance requests
     await MaintenanceRequest.create({ propertyId: properties[0]._id, description: 'Leaky faucet in the kitchen', status: 'Pending' });
