@@ -21,15 +21,24 @@ nav a:hover {
   color: #424242; /* Slightly darker shade of grey on hover */
 }
 
-/* Styling for the "Profiles" link */
-nav a.profiles {
-  background-color: #4caf50; /* Green background color for the "Profiles" link */
-  color: white; /* Text color for the "Profiles" link */
-}
-
 /* Styling for the active link */
 nav a.active {
   color: white; /* Text color for active link */
   background-color: #333; /* Background color for active link */
   border-color: #333; /* Border color for active link */
+}
+
+/* Styling for logout confirmation */
+nav div {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 999; /* Ensure it's above other elements */
+}
+
+nav div button {
+  margin-top: 5px;
 }
