@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5", 
     "@apollo/client": "^3.9.4",
     "apollo-server-express": "^3.13.0",
     "axios": "^1.6.7",
