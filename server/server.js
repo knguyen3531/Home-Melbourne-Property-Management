@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const path = require('path'); // Import path module for file paths
 const typeDefs = require('./graphql/schemas/typeDefs');
 const resolvers = require('./graphql/resolvers/resolver');
 const connectDB = require('./config/database');
@@ -25,6 +26,16 @@ const startServer = async () => {
 
   await server.start();
   server.applyMiddleware({ app, cors: false, path: '/graphql' }); // Update to include the path
+
+  // Serve the static files from the React app
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+
+    // Route all other requests to React app's index.html
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+  }
 
   await connectDB();
 

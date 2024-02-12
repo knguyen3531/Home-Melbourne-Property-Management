@@ -4,7 +4,8 @@
   "description": "Property Management Application",
   "scripts": {
     "start": "node server/server.js",
-    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+
   },
   "author": "",
   "license": "ISC",
