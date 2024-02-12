@@ -57,6 +57,31 @@ const resolvers = {
         token
       };
     },
+
+    async createPayment(_, { propertyId }) {
+      try {
+        // Find the property by ID
+        const property = await Property.findById(propertyId);
+        if (!property) {
+          throw new Error('Property not found');
+        }
+        
+        // Update the rent status to "paid"
+        property.rentStatus = 'paid';
+        await property.save();
+
+        return {
+          success: true,
+          message: 'Payment successful',
+        };
+      } catch (error) {
+        console.error('Error creating payment:', error);
+        return {
+          success: false,
+          message: 'Failed to create payment',
+        };
+      }
+    },
   },
 };
 

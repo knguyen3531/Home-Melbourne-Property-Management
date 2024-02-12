@@ -4,15 +4,20 @@ import './DashboardPageStyles.css';
 
 function DashboardPage() {
   const [userProperties, setUserProperties] = useState([]);
-  const [nextDueDate, setNextDueDate] = useState(null); // State to hold the next due date
+  const [nextDueDate, setNextDueDate] = useState(null);
+  const [formData, setFormData] = useState({
+    cardholderName: '',
+    cardNumber: '',
+    cvv: '',
+    expirationDate: ''
+  });
+  const [isFormFilled, setIsFormFilled] = useState(false);
   const { user, token } = useAuth();
 
   useEffect(() => {
     const fetchUserProperties = async () => {
       if (user && user.email && token) {
         const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql';
-
-        console.log('Making request to:', graphqlEndpoint); 
 
         try {
           const response = await fetch(graphqlEndpoint, {
@@ -51,6 +56,7 @@ function DashboardPage() {
           }
           if (data.getPropertiesByUser) {
             setUserProperties(data.getPropertiesByUser);
+            updateNextDueDate(data.getPropertiesByUser);
           } else {
             throw new Error('Failed to fetch properties');
           }
@@ -62,18 +68,85 @@ function DashboardPage() {
 
     fetchUserProperties();
 
-    // Calculate and set the next due date
-    const calculateNextDueDate = () => {
-      // Example: Calculate the next due date to be one month from the current date
-      const currentDate = new Date();
-      const nextMonth = currentDate.getMonth() + 1;
-      const nextYear = currentDate.getFullYear();
-      const calculatedDueDate = new Date(nextYear, nextMonth, 1); // First day of next month
-      setNextDueDate(calculatedDueDate);
-    };
-
-    calculateNextDueDate(); // Call the function when component mounts
   }, [user, token]);
+
+  const updateNextDueDate = (properties) => {
+    const currentDate = new Date();
+    const nextMonth = currentDate.getMonth() + 1;
+    const nextYear = currentDate.getFullYear();
+    const calculatedDueDate = new Date(nextYear, nextMonth, 1); // First day of next month
+
+    properties.forEach(property => {
+      if (property.rentStatus === 'paid') {
+        calculatedDueDate.setMonth(calculatedDueDate.getMonth() + 1);
+      } else if (property.rentStatus === 'unpaid') {
+        calculatedDueDate.setMonth(calculatedDueDate.getMonth() + 2);
+      }
+    });
+
+    setNextDueDate(calculatedDueDate);
+  };
+
+  // Function to handle payment submission
+  const handlePayment = async (propertyId) => {
+    const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql';
+
+    try {
+      const response = await fetch(graphqlEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          query: `
+            mutation CreatePayment($propertyId: ID!) {
+              createPayment(propertyId: $propertyId) {
+                success
+                message
+              }
+            }
+          `,
+          variables: {
+            propertyId,
+          },
+        }),
+      });
+
+      const { data } = await response.json();
+      if (data.createPayment.success) {
+        alert(data.createPayment.message); // Show success message
+        // Update the UI to reflect the payment status change
+        setUserProperties(prevProps => prevProps.map(property => {
+          if (property.id === propertyId) {
+            return { ...property, rentStatus: 'paid' };
+          }
+          return property;
+        }));
+        updateNextDueDate(userProperties); // Update next due date
+      } else {
+        throw new Error(data.createPayment.message);
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error);
+      alert('Failed to process payment.');
+    }
+  };
+
+  // Function to handle form input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  // Function to check if the form is filled
+  useEffect(() => {
+    const isFilled = Object.values(formData).every(value => value !== '');
+    setIsFormFilled(isFilled);
+  }, [formData]);
 
   return (
     <div className="dashboard-container">
@@ -97,6 +170,29 @@ function DashboardPage() {
             )}
             <p><strong>Rent Price:</strong> ${property.rentPrice}</p>
             <p><strong>Rent Status:</strong> {property.rentStatus}</p>
+            {/* Payment form */}
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              handlePayment(property.id);
+            }}>
+              <div>
+                <label>Cardholder Name:</label>
+                <input type="text" name="cardholderName" placeholder="Name" value={formData.cardholderName} onChange={handleInputChange} required />
+              </div>
+              <div>
+                <label>Card Number:</label>
+                <input type="text" name="cardNumber" placeholder="Card Number" value={formData.cardNumber} onChange={handleInputChange} required />
+              </div>
+              <div>
+                <label>CVV:</label>
+                <input type="text" name="cvv" placeholder="CVV" value={formData.cvv} onChange={handleInputChange} required />
+              </div>
+              <div>
+                <label>Expiration Date:</label>
+                <input type="month" name="expirationDate" value={formData.expirationDate} onChange={handleInputChange} required />
+              </div>
+              <button type="submit" disabled={!isFormFilled}>Submit Payment</button>
+            </form>
           </div>
         ))
       ) : (

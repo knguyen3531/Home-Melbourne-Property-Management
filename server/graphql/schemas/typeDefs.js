@@ -1,3 +1,4 @@
+
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
@@ -18,7 +19,7 @@ const typeDefs = gql`
     amenities: [String]
     description: String
     rentPrice: Float
-    rentStatus: String  # Added rentStatus field
+    rentStatus: String
   }
 
   type MaintenanceRequest {
@@ -44,7 +45,7 @@ const typeDefs = gql`
     amenities: [String]
     description: String
     rentPrice: Float
-    rentStatus: String  # Added rentStatus field
+    rentStatus: String
   }
 
   input CreateMaintenanceRequestInput {
@@ -65,6 +66,7 @@ const typeDefs = gql`
     createProperty(input: CreatePropertyInput): Property
     createMaintenanceRequest(input: CreateMaintenanceRequestInput): MaintenanceRequest
     loginUser(email: String!, password: String!): AuthResponse!
+    createPayment(propertyId: ID!): PaymentResponse!
   }
 
   type AuthResponse {
@@ -72,6 +74,11 @@ const typeDefs = gql`
     message: String
     user: User
     token: String
+  }
+
+  type PaymentResponse {
+    success: Boolean!
+    message: String
   }
 `;
 
