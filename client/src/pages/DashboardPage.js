@@ -1,5 +1,3 @@
-// client\src\pages\DashboardPage.js
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../utils/AuthContext';
 import './DashboardPageStyles.css';
@@ -80,9 +78,9 @@ function DashboardPage() {
 
     properties.forEach(property => {
       if (property.rentStatus === 'paid') {
-        calculatedDueDate.setMonth(calculatedDueDate.getMonth() + 1);
-      } else if (property.rentStatus === 'unpaid') {
         calculatedDueDate.setMonth(calculatedDueDate.getMonth() + 2);
+      } else if (property.rentStatus === 'unpaid') {
+        calculatedDueDate.setMonth(calculatedDueDate.getMonth() + 1);
       }
     });
 
@@ -119,13 +117,19 @@ function DashboardPage() {
       if (data.createPayment.success) {
         alert(data.createPayment.message); // Show success message
         // Update the UI to reflect the payment status change
-        setUserProperties(prevProps => prevProps.map(property => {
-          if (property.id === propertyId) {
-            return { ...property, rentStatus: 'paid' };
-          }
-          return property;
-        }));
-        updateNextDueDate(userProperties); // Update next due date
+        setUserProperties(prevProps => {
+          const updatedProperties = prevProps.map(property => {
+            if (property.id === propertyId) {
+              return { ...property, rentStatus: 'paid' };
+            }
+            return property;
+          });
+
+          // Recalculate next due date here with the updated properties
+          updateNextDueDate(updatedProperties);
+
+          return updatedProperties;
+        });
       } else {
         throw new Error(data.createPayment.message);
       }
