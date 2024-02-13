@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../utils/AuthContext';
-import './ProfilePageStyles.css'; // Import your CSS file for styling
+import './ProfilePageStyles.css';
 
 function ProfilePage() {
   const [userData, setUserData] = useState(null);
@@ -26,7 +26,7 @@ function ProfilePage() {
         };
 
         try {
-          const response = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql', {
+          const response = await fetch(process.env.REACT_APP_GRAPHQL_ENDPOINT || 'https://home-melbourne-793e701a0452.herokuapp.com/graphql', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

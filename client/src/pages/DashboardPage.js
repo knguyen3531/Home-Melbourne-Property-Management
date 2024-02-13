@@ -19,7 +19,7 @@ function DashboardPage() {
   useEffect(() => {
     const fetchUserProperties = async () => {
       if (user && user.email && token) {
-        const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql';
+        const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'https://home-melbourne-793e701a0452.herokuapp.com/graphql';
 
         try {
           const response = await fetch(graphqlEndpoint, {
@@ -91,7 +91,7 @@ function DashboardPage() {
 
   // Function to handle payment submission
   const handlePayment = async (propertyId) => {
-    const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:5000/graphql';
+    const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'https://home-melbourne-793e701a0452.herokuapp.com/graphql';
 
     try {
       const response = await fetch(graphqlEndpoint, {

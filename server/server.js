@@ -14,8 +14,8 @@ const startServer = async () => {
 
   // Configure CORS here
   const corsOptions = {
-    origin: 'http://localhost:5000/graphql', // Adjust this to your frontend's URL
-    credentials: true, // Allows cookies to be sent alongside the request if needed
+    origin: 'https://home-melbourne-793e701a0452.herokuapp.com/graphql',
+    credentials: true,
   };
   app.use(cors(corsOptions)); // Use CORS with your specified options
 

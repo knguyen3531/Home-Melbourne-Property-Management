@@ -1,4 +1,0 @@
-REACT_APP_GRAPHQL_ENDPOINT=http://localhost:5000/graphql
-MONGODB_URI=mongodb+srv://knguyen3531:Kennguyen13@homemelbourne.iei85an.mongodb.net/?retryWrites=true&w=majority
-JWT_SECRET=3b2a8d5fde1b4cf8cc973ad450cbe1e1628532a1cac1e2589810140889e369be
-PORT=5000

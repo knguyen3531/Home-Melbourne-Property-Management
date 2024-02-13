@@ -4,7 +4,7 @@ import { AuthProvider } from './utils/AuthContext';
 import ProtectedRoute from './utils/ProtectedRoute';
 import HomePage from './pages/HomePage';
 import DashboardPage from './pages/DashboardPage';
-import ProfilePage from './pages/ProfilePage'; // Make sure to import the ProfilePage component
+import ProfilePage from './pages/ProfilePage';
 import LoginForm from './components/auth/LoginForm';
 import Nav from './components/common/Nav';
 

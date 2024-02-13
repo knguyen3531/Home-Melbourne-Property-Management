@@ -9,7 +9,7 @@ function Nav() {
 
     const handleLogout = () => {
         logout();
-        history.push('/login'); // Redirect to login page immediately after logout
+        history.push('/login');
     };
 
     return (
