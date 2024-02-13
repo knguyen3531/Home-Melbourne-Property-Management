@@ -1,7 +1,7 @@
 // client/src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'; // Ensure this points to the correct CSS file for global styles
+import './index.css';
 import App from './App';
 
 ReactDOM.render(

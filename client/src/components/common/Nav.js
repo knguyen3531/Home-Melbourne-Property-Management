@@ -9,7 +9,7 @@ function Nav() {
 
     const handleLogout = () => {
         logout();
-        history.push('/login'); // Redirect to login page immediately after logout
+        history.push('/login');
     };
 
     return (
@@ -18,6 +18,7 @@ function Nav() {
             {user ? (
                 <>
                     <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/profile" style={{ marginLeft: "20px" }}>Profile</Link>
                     <button onClick={handleLogout} style={{ marginLeft: "20px", background: "none", border: "none", color: "#757575", cursor: "pointer" }}>Logout</button>
                 </>
             ) : (

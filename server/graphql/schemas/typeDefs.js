@@ -1,10 +1,11 @@
-
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
     id: ID!
     email: String!
+    phone: String
+    billingAddress: String
   }
 
   type Property {
@@ -54,19 +55,10 @@ const typeDefs = gql`
     status: String
   }
 
-  type Query {
-    getUsers: [User]
-    getProperties: [Property]
-    getMaintenanceRequests: [MaintenanceRequest]
-    getPropertiesByUser(userEmail: String!): [Property]
-  }
-
-  type Mutation {
-    createUser(input: CreateUserInput): User
-    createProperty(input: CreatePropertyInput): Property
-    createMaintenanceRequest(input: CreateMaintenanceRequestInput): MaintenanceRequest
-    loginUser(email: String!, password: String!): AuthResponse!
-    createPayment(propertyId: ID!): PaymentResponse!
+  input UserUpdateInput {
+    email: String
+    phone: String
+    billingAddress: String
   }
 
   type AuthResponse {
@@ -79,6 +71,24 @@ const typeDefs = gql`
   type PaymentResponse {
     success: Boolean!
     message: String
+  }
+
+  type Query {
+    getUsers: [User]
+    getProperties: [Property]
+    getUserByEmail(email: String!): User
+    getMaintenanceRequests: [MaintenanceRequest]
+    getPropertiesByUser(userEmail: String!): [Property]
+    getUser(id: ID!): User
+  }
+
+  type Mutation {
+    createUser(input: CreateUserInput): User
+    createProperty(input: CreatePropertyInput): Property
+    createMaintenanceRequest(input: CreateMaintenanceRequestInput): MaintenanceRequest
+    loginUser(email: String!, password: String!): AuthResponse!
+    createPayment(propertyId: ID!): PaymentResponse!
+    updateUser(id: ID!, input: UserUpdateInput!): User
   }
 `;
 

@@ -9,10 +9,20 @@ const { AuthenticationError } = require('apollo-server-express');
 const resolvers = {
   Query: {
     async getUsers() {
-      return User.find({});
+      return User.find({}).select('-password'); // Exclude passwords from user objects
+    },
+    async getUser(_, { id }) {
+      const user = await User.findById(id).select('-password'); // Exclude password from the results
+      if (!user) throw new Error('User not found');
+      return user;
+    },
+    async getUserByEmail(_, { email }) {
+      const user = await User.findOne({ email: email }).select('-password');
+      if (!user) throw new Error('User not found');
+      return user;
     },
     async getProperties() {
-      return Property.find({}).populate('owner', 'email'); 
+      return Property.find({}).populate('owner', 'email');
     },
     async getMaintenanceRequests() {
       return MaintenanceRequest.find({});
@@ -20,22 +30,21 @@ const resolvers = {
     async getPropertiesByUser(_, { userEmail }) {
       const user = await User.findOne({ email: userEmail });
       if (!user) throw new Error('User not found');
-      return await Property.find({ owner: user._id }).populate('tenants');
+      return Property.find({ owner: user._id }).populate('tenants');
     },
   },
   Mutation: {
     async createUser(_, { input }) {
-      const user = new User(input);
-      await user.save();
+      const newUser = new User(input);
+      await newUser.save();
 
       return {
-        id: user._id,
-        email: user.email,
-        phone: user.phone,
-        billingAddress: user.billingAddress
+        id: newUser._id,
+        email: newUser.email,
+        phone: newUser.phone,
+        billingAddress: newUser.billingAddress
       };
     },
-
     async loginUser(_, { email, password }) {
       const user = await User.findOne({ email });
       if (!user) {
@@ -45,42 +54,30 @@ const resolvers = {
       if (!isValidPassword) {
         throw new AuthenticationError('Invalid password');
       }
-      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
       return {
         success: true,
         message: 'Login successful',
         user: {
-          id: user.id,
+          id: user._id,
           email: user.email
-
         },
         token
       };
     },
-
     async createPayment(_, { propertyId }) {
-      try {
-        // Find the property by ID
-        const property = await Property.findById(propertyId);
-        if (!property) {
-          throw new Error('Property not found');
-        }
-        
-        // Update the rent status to "paid"
-        property.rentStatus = 'paid';
-        await property.save();
-
-        return {
-          success: true,
-          message: 'Payment successful',
-        };
-      } catch (error) {
-        console.error('Error creating payment:', error);
-        return {
-          success: false,
-          message: 'Failed to create payment',
-        };
+      const property = await Property.findById(propertyId);
+      if (!property) {
+        throw new Error('Property not found');
       }
+
+      property.rentStatus = 'paid';
+      await property.save();
+
+      return {
+        success: true,
+        message: 'Payment successful',
+      };
     },
   },
 };

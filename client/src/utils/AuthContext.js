@@ -1,5 +1,3 @@
-// client/src/utils/AuthContext.js
-
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
@@ -11,9 +9,11 @@ export function useAuth() {
 export const AuthProvider = ({ children }) => {
     const [authData, setAuthData] = useState({ user: null, token: null });
 
+    const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'https://home-melbourne-793e701a0452.herokuapp.com/graphql';
+
     const login = async (email, password) => {
         try {
-            const response = await fetch('http://localhost:5000/graphql', { // Make sure the URL is correct
+            const response = await fetch(graphqlEndpoint, { // Corrected to use the variable
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
