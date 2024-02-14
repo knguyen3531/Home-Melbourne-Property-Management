@@ -93,6 +93,19 @@ cd server
 
 npm run seed
 
+seed dummies password: 
+
+john.doe@example.com
+password123
+
+
+jane.smith@example.com
+qwerty456
+
+
+michael.johnson@example.com
+pass123
+
 6. Run npm start in project root folder:
 
 npm start
